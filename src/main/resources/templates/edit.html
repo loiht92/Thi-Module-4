@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit City</title>
+</head>
+<body>
+<h1>Edit City</h1>
+<a href="/">List city</a>
+<!--/*@thymesVar id="message" type="java"*/-->
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+
+<form th:action="@{/edit}" th:object="${city}" method="post">
+    <input type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Tên:</td>
+            <td><input type="text" name="name" th:value="${city.name}"></td>
+        </tr>
+        <tr>
+            <td>Quốc gia:</td>
+            <td>
+                <select name="country">
+                    <option
+                            th:each="c : ${country}"
+                            th:value="${c.id}"
+                            th:text="${c.name}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Diện tích:</td>
+            <td><input type="text" name="area" th:value="${city.area}"></td>
+        </tr>
+        <tr>
+            <td>Dân số:</td>
+            <td><input type="text" name="population" th:value="${city.population}"></td>
+        </tr>
+        <tr>
+            <td>GDP:</td>
+            <td><input type="text" name="gdp" th:value="${city.gdp}"></td>
+        </tr>
+        <tr>
+            <td>Giới thiệu:</td>
+            <td><input type="text" name="description" th:value="${city.description}"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Update"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
+

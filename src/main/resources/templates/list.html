@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List City</title>
+</head>
+<body>
+<a href="/create">Create City</a><br/>
+<a href="/">List City</a>
+
+<div class="notify">
+    <div th:if="${message}">
+        <!--/*@thymesVar id="message" type="Gom.codegym.AppConfiguration"*/-->
+        <span th:text="${message}"></span>
+    </div>
+    <h1>Cities</h1>
+    <table border="1" >
+        <tr>
+            <th>Tên</th>
+            <th>Quốc gia</th>
+            <th>Diện tích</th>
+            <th>Dân số</th>
+            <th>GDP</th>
+            <th>Giới thiệu</th>
+            <th colspan="3">Action</th>
+
+        </tr>
+        <tr th:each="city : ${cities} ">
+            <td th:text="${city.name}"></td>
+            <td th:text="${city.country.name}"></td>
+            <td th:text="${city.area}"></td>
+            <td th:text="${city.population}"></td>
+            <td th:text="${city.gdp}"></td>
+            <td th:text="${city.description}"></td>
+            <td><a th:href="@{/edit/{id}(id=${city.getId()})}">Edit</a></td>
+            <td><a th:href="@{/delete/{id}(id=${city.getId()})}">Delete</a></td>
+            <td><a th:href="@{/view/{id}(id=${city.getId()})}">Details</a></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <a th:href="@{'/'(page=${cities.number - 1})}" th:if="${cities.hasPrevious()}">Previous</a>
+    <span th:text="${cities.number + 1}"></span>/<span th:text="${cities.totalPages}"></span>
+    <a th:href="@{'/'(page=${cities.number + 1})}" th:if="${cities.hasNext()}">Next</a>
+</div>
+</body>
+</html>
